@@ -1,8 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
-import React ,{Component} from 'react';
+import React from 'react';
+import Navbar from './components/Navbar';
+// import {BrowserRouter as Router,Routes, Route} from "react-router-dom";
+// import Home from './components/Pages/Home';
 
-class App extends Component{
+class App extends React.Component{
 
   state = {};
 
@@ -21,13 +23,21 @@ class App extends Component{
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo"/>
-          <h3 className="App-title">{this.state.message}</h3>
-          </header>
-          <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-          </p>
+        <Navbar/>
+        <body className="App_grid">
+        <section className="App-section">
+        {/* <section className="App-header"> */}
+          <header className="App-header">
+            <div className="App-bckgrd media">
+              <img src={require('./assests/scenic.jpeg').default} alt="backgrdimg" />
+            </div>
+            </header>
+            <div className="App__banner__box">
+              <h3 className="App-title">{this.state.message}</h3>
+            </div>
+            
+        </section>  
+        </body>
       </div>
     )
   }
@@ -35,22 +45,12 @@ class App extends Component{
 
 // function App() {
 //   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
+//       <Router>
+//         <Navbar/>
+//         <Routes>
+//           <Route path='/' exact element={<Home />}/>
+//         </Routes>
+//       </Router>
 //   );
 // }
 
