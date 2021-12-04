@@ -4,50 +4,64 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 
-import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
-@Service
+//@Service
 public class SoupService {
 
     private Map<String, String> authors = new HashMap<>();
+
+
     public static void main(String[] args){
-    final String url = "http://classics.mit.edu/Browse/index.html";
-
-    try {
-        final Document document = Jsoup.connect(url).get();
-        Elements body = document.select("frame");
-
+//    final String url = "http://classics.mit.edu/Browse/index.html";
+//
+//    try {
+//        final Document document = Jsoup.connect(url).get();
+//        Elements body = document.select("frame");
+//
 //        Elements links = document.select("a[href]");
-        for(Element b :  body){
+//        for(Element b :  body){
 //        System.out.println(b.attr("src"));
-        if (b.attr("name").equals("authors")){
-            getAuthors(b.attr("src"));
-        }
-        }
-    }
-    catch (Exception e){
-        e.printStackTrace();
-    }
+//        if (b.attr("name").equals("authors")){
+//            getAuthors(b.attr("src"));
+//        }
+//        }
+//    }
+//    catch (Exception e){
+//        e.printStackTrace();
+//    }
+        String url = "http://classics.mit.edu//Browse/authors.html";
+        getAuthors(url);
+
     }
 
+//    @Value("http://classics.mit.edu//Browse/authors.html")
+//    private static String url;
     public static Map<String, String> getAuthors(String url) {
-        String urlAuthor = "http://classics.mit.edu/" + url;
 
+//        String urlAuthor = "http://classics.mit.edu/" + url;
+//        System.out.println(urlAuthor);
+//       String s = url;
+        System.out.println(url);
         Map<String, String> authors = new HashMap<>();
         try {
-            final Document document = Jsoup.connect(urlAuthor).get();
+            final Document document = Jsoup.connect(url).get();
+//            final Document document = Jsoup.connect(String.valueOf(url)).get();
+//            Elements e = document.getElementsByTag("meta");
+//            e.forEach(System.out::println);
             Elements body = document.select("a");
             for (Element l : body)
             {
                 if (l.attr("target").equals("browse"))
                 {
                     authors.put(l.text(), l.attr("href"));
+//                    System.out.println(l);
                 }
             }
         }
@@ -58,15 +72,23 @@ public class SoupService {
         getCollectionOfBooksByAuthor(authors.get("Homer"));
 
 //      authors.forEach((k,v) -> System.out.println("key: "+ k + " value: "+ v));
+      /*
+      * url http://classics.mit.edu//Browse/authors.html
+      * returns key: Sa'di value: browse-Sadi.html
+      * */
         return authors;
 
     }
 
-
+//TODO
+    /*This needs to be the first call to the website I make show the user author names and let them select
+    then i can make the call for that specific author.
+     */
     /*
     * This method takes and author name and uses the name to retrieve a link from a hashmap
     * The link is used to retrieve the books by the author and links to the books. Which are then placed in a
     * hashMap
+    *
     * */
 
     public static void getCollectionOfBooksByAuthor(String authorName){
@@ -76,8 +98,9 @@ public class SoupService {
         /*
         * This is currently using the link directly and need to make it access it through the hashmap key
         * */
+
         String urlAuthor = "http://classics.mit.edu/Browse/" + authorName;
-//        System.out.println(urlAuthor);
+        System.out.println(urlAuthor);
         try {
             final Document document = Jsoup.connect(urlAuthor).get();
             Elements body = document.select("a");
@@ -102,6 +125,11 @@ public class SoupService {
 //        booksAndLinks.forEach((k,v) -> System.out.println("key " + k + " value " +v));
 
         getBookByTitle(booksAndLinks.get("The Iliad"));
+
+        /*
+       * http://classics.mit.edu/Browse/browse-Homer.html
+        * returns key: Homeric Hymns value: /Homer/hh.1.html
+        * */
     }
 
     public static void getBookByTitle(String title)
@@ -125,6 +153,12 @@ public class SoupService {
         }
 
         getBookLinkToTextFile(getBookByTitle.get("Book I"));
+
+        /*
+        url http://classics.mit.edu/
+        * returns Book:  XXIV  extension: iliad.24.xxiv.html
+        * */
+
     }
 
     public static void getBookLinkToTextFile(String textLink)
@@ -142,7 +176,7 @@ public class SoupService {
 //            }
             for (Element b : body)
             {
-                System.out.println(b.select("a").attr("href"));
+//                System.out.println(b.select("a").attr("href"));
                 getBookText(b.select("a").attr("href"));
 //                System.out.println(b);
             }
@@ -151,6 +185,11 @@ public class SoupService {
            exception.printStackTrace();
         }
 
+        /*
+        * url: http://classics.mit.edu/Homer/iliad.1.i.html
+        * returns: iliad.mb.txt
+        *
+        * */
 
     }
 
@@ -162,7 +201,7 @@ public class SoupService {
         try {
             final Document document = Jsoup.connect(urlPart).get();
             Elements body = document.select("body");
-            System.out.println(body);
+//            System.out.println(body);
 
         }catch
         (Exception e)
@@ -170,5 +209,10 @@ public class SoupService {
             e.printStackTrace();
         }
     }
+
+    /*
+    * url : http://classics.mit.edu/Homer/iliad.mb.txt
+    * returns: text
+    * */
 
 }
