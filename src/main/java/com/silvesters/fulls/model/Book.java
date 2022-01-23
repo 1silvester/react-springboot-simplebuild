@@ -6,13 +6,16 @@ public class Book {
     private String author;
     private String translator;
     private String dateWritten;
+    private String linkToBrowse;
+
 
     public Book() {
     }
-    public Book(String title, String author) {
+
+    public Book(String author, String linkToBrowse) {
         super();
-        this.title = title;
         this.author = author;
+        this.linkToBrowse = linkToBrowse;
     }
 
     public Book(String title, String author, String translator, String dateWritten) {

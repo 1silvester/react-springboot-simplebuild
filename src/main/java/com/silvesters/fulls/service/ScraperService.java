@@ -12,5 +12,6 @@ public interface ScraperService {
     public Map<String, String> listAuthors();
     public Map<String, String> searchBookByAuthor(String authorName);
     public Map<String, String> searchBookByTitle(String title);
+//    public Map<String, String>
 }
 

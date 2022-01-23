@@ -33,12 +33,14 @@ public class WebScrapeService
     @Value("${classical.mit.browse}")
     private String browseUrl;
 
+    private Map<String, String> authors = new HashMap<>();
 
+    private Map<String, String> booksAndLinks = new HashMap<>();
 
+    private Map<String, String> books = new HashMap<>();
     @Override
     public Map<String,String> listAuthors() {
         System.out.println(classicsUrl);
-        Map<String, String> authors = new HashMap<>();
         try {
             Document document = Jsoup.connect(classicsUrl).get();
 
@@ -63,9 +65,9 @@ public class WebScrapeService
 
         @Override
     public Map<String, String> searchBookByAuthor(String authorName) {
-        Map<String, String> authorMap = listAuthors();
-        String authorUrl = authorMap.get(authorName);
-        Map<String, String> booksAndLinks = new HashMap<>();
+//        Map<String, String> authorMap = listAuthors();
+        String authorUrl = authors.get(authorName);
+
         String concatUrl = browseUrl + authorUrl;
         try
         {
@@ -89,6 +91,7 @@ public class WebScrapeService
 
     @Override
     public Map<String, String> searchBookByTitle(String title) {
+
         return null;
     }
 
