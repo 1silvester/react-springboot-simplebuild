@@ -1,16 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap");
+
 .App {
+  display: block;
   text-align: center;
+  /* border: 1px solid red; */
+}
+.App_navbar {
+  display: block;
+  border: 3px solid yellow;
+}
+body {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  grid-template-columns: 100%;
+  min-height: 100%;
+  margin: 0;
+  font-size: 1.5rem;
+  letter-spacing: 0.06rem;
+  line-height: calc(1 + 0.8 / var(--font-body-scale));
+  font-family: var(--font-body-family);
+  font-style: var(--font-body-style);
+  font-weight: var(--font-body-weight);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App_grid {
+  background-attachment: fixed;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.App-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.App-bckgrd {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  background-attachment: cover;
+}
+
+.media {
+  display: flex;
+  background-color: rgba(var(--color-foreground));
+  justify-content: center;
+
+  background-image: 100%;
 }
 
 .App-header {
@@ -28,11 +63,46 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.App__banner__box {
+  padding: 4rem-3.5rem;
+  position: fixed;
+  height: 100px;
+  align-items: center;
+  text-align: center;
+  width: auto;
+  top: -55%;
+  padding-left: 30%;
+  padding-right: 30%;
+  padding-bottom: 20%;
+  border: 3px solid red;
+}
+
+.App__textarea {
+  top: -40%;
+  border: 5px solid gold;
+  background-color: transparent;
+}
+
+.App__comments_box {
+  padding: 4rem-3.5rem;
+  position: relative;
+  height: 100px;
+  align-items: center;
+  text-align: center;
+  width: auto;
+  top: -75%;
+  padding-left: 30%;
+  padding-right: 30%;
+  padding-bottom: 10%;
+}
+
+@media screen and (max-width: 1000px) {
+  .App-section {
+    margin-top: 0;
   }
-  to {
-    transform: rotate(360deg);
-  }
+}
+
+.App__button {
+  align-items: center;
+  justify-content: space-between;
 }
